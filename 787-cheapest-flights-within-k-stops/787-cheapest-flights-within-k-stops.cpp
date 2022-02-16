@@ -1,24 +1,30 @@
 class Solution {
 public:
-    /*  In bellman-ford algo calculates the shortest distance from the source
-        point to all of the vertices.
-        Time complexity of Bellman-Ford is O(VE),
-    */
+   
     int findCheapestPrice(int n, vector<vector<int>>& flights, int src, int dst, int K) {
-        /* distance from source to all other nodes */
-        vector<int> dist( n, INT_MAX );
-        dist[src] = 0;
+       vector<vector<int>> dp(K+2, vector<int>(n, INT_MAX));
         
-        // Run only K+1 times since we want shortest distance in K hops
-        for( int i=0; i <= K; i++ ) {
-            vector<int> tmp( dist );
-            for( auto flight : flights ) {
-                if( dist[ flight[0] ] != INT_MAX ) {
-                    tmp[ flight[1] ] = min( tmp[flight[1]], dist[ flight[0] ] + flight[2] );
-                }
-            }
-            dist = tmp;
+        //dp[i][j] = Dist to reach j using atmost i edges from src
+        
+        for(int i = 0; i <= K+1; i++)
+        {
+            dp[i][src] = 0; // Dist to reach src always zero
         }
-        return dist[dst] == INT_MAX ? -1 : dist[dst];
+        
+        for(int i = 1; i <= K+1; i++)
+        {
+            for(auto &f: flights)
+            {
+                //Using indegree
+                int u = f[0];
+                int v = f[1];
+                int w = f[2];
+                
+                if(dp[i-1][u] != INT_MAX)
+                    dp[i][v] = min(dp[i][v], dp[i-1][u] + w);
+            }
+        }
+        
+        return (dp[K+1][dst] == INT_MAX)? -1: dp[K+1][dst];
     }
 };
