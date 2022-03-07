@@ -13,26 +13,20 @@ public:
     ListNode* mergeTwoLists(ListNode* list1, ListNode* list2) {
         if(list1==NULL) return list2;
         if(list2==NULL) return list1;
-     
-    ListNode* head=NULL;    // head of the list to return
-    
-    // find first element (can use dummy node to put this part inside of the loop)
-    if(list1->val < list2->val)       { head = list1; list1 = list1->next; }
-    else                        { head = list2; list2 = list2->next; }
-    
-    ListNode* p = head;     // pointer to form new list
-    
-    // I use && to remove extra IF from the loop
-    while(list1 && list2){
-        if(list1->val < list2->val)   { p->next = list1; list1 = list1->next; }
-        else                    { p->next = list2; list2 = list2->next; }
-        p=p->next;
-    }
-    
-    // add the rest of the tail, done!
-    if(list1)  p->next=list1;
-    else    p->next=list2;
-    
-    return head;
+        
+        // In-place algorithm
+        
+        if(list1->val>list2->val) swap(list1,list2);
+        ListNode* res=list1;
+        while(list1 && list2){
+            ListNode* temp=NULL;
+            while(list1 && list1->val<=list2->val){
+                temp=list1;
+                list1=list1->next;
+            }
+            temp->next=list2;
+            swap(list1,list2);
+        }
+     return res;
     }
 };
