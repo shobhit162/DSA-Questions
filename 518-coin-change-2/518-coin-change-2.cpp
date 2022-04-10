@@ -1,8 +1,14 @@
 class Solution {
 public:
     int change(int amount, vector<int>& coins) {
+        // chal gya lekin fir bhi edge cases lga diyo jaise coins.size()==0 and amount==0
         int n=coins.size();
         int dp[n+1][amount+1];
+        if(amount == 0) {
+            return 1;
+        }
+        if(n==0)
+          return 0;
          for(int i=0;i<n+1;i++)
         {
             dp[i][0] = 1;
