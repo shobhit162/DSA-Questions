@@ -5,8 +5,6 @@ public:
         int n=str1.size();
         int m=str2.size();
         int dp[n+1][m+1];
-        // for(int i=0;i<n+1;i++)dp[i][0]=0;
-        // for(int j=0;j<m+1;j++)dp[0][j]=0;
         for(int i=0;i<n+1;i++){
             for(int j=0;j<m+1;j++){
           if(i==0||j==0)
@@ -26,17 +24,6 @@ public:
                 i--;
                 j--;
             }
-        //      else
-        // {
-        //     if(dp[i-1][j]>dp[i][j-1])
-        //     {
-        //         s.push_back(str1[i-1]);
-        //         i--;
-        //     } else{
-        //         s.push_back(str2[j-1]);
-        //         j--;
-        //     }
-        // }
             else if(dp[i][j-1]>dp[i-1][j]){
                 s.push_back(str2[j-1]);
                 j--;
