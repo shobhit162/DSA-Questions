@@ -16,11 +16,11 @@ public:
         int n=text1.size();
         int m=text2.size();
         
-        memset(dp,-1,sizeof(dp));
+        // memset(dp,-1,sizeof(dp));
         // if(n==0 ||m==0)return 0;
-        for(int i=0;i<n+1;i++)
-            for(int j=0;j<m+1;j++)
-                if(i==0 || j==0)dp[i][j]=0;
+        for(int i=0;i<n+1;i++)dp[i][0]=0;
+        for(int j=0;j<m+1;j++)dp[0][j]=0;
+                
         for(int i=1;i<n+1;i++)
             for(int j=1;j<m+1;j++){
         if(text1[i-1]==text2[j-1])
