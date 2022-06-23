@@ -2,16 +2,16 @@ class Solution {
 public:
     int scheduleCourse(vector<vector<int>>& courses) {
          sort(courses.begin(), courses.end(), [](auto& p, auto& q) {return p[1] < q[1];});
-        priority_queue<int> q;
+        priority_queue<int> mq;
         int sum = 0;
         for (auto& c : courses) {
-            q.push(c[0]);
+            mq.push(c[0]);
             sum += c[0];
             if (sum > c[1]) {
-                sum -= q.top();
-                q.pop();
+                sum -= mq.top();
+                mq.pop();
             }
         }
-        return q.size();
+        return mq.size();
     }
 };
