@@ -1,16 +1,23 @@
 class Solution {
 public:
-   vector<vector<int> >dp;
-int minDistance(string& word1, string& word2) {
-	// dp[i][j] will denote minimum steps required to equalize word1[i:end] and word[2:j:end]
-	dp.resize(size(word1) + 1, vector<int>(size(word2) + 1, 1000));
-	return solve(word1, word2, 0, 0);
-}
-int solve(string &w1, string &w2, int i, int j) {
-	if(i == size(w1) && j == size(w2)) return 0;
-	if(i == size(w1) || j == size(w2)) return max(size(w1) - i, size(w2) - j);
-	if(dp[i][j] != 1000) return dp[i][j];  // directly return stored answer if already computed before
-	if(w1[i] == w2[j]) return solve(w1, w2, i + 1, j + 1);
-	return dp[i][j] = 1 + min(solve(w1, w2, i + 1, j), solve(w1, w2, i, j + 1));
-}
+    int lcs(string X, string Y,int m,int n){
+        int dp[m+1][n+1];
+        for(int i=0;i<m+1;i++){
+            for(int j=0;j<n+1;j++){
+                if(i==0 || j==0) dp[i][j]=0;
+            }
+        }
+        
+        for(int i=1;i<m+1;i++){
+            for(int j=1;j<n+1;j++){
+                if(X[i-1]==Y[j-1]) dp[i][j]= 1+dp[i-1][j-1];
+                else dp[i][j] = max(dp[i][j-1], dp[i-1][j]);
+            }
+        }
+        return dp[m][n];
+    }
+    int minDistance(string s1, string s2) {
+        int m = s1.size(), n = s2.size();
+        return m+n-2*lcs(s1,s2,m,n) ;
+    }
 };
