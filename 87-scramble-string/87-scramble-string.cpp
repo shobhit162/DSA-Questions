@@ -4,8 +4,8 @@ public:
         {
             int i,len = s1.size();
             bool res = false;
-            if(0==len) return false;
-            else if(1==len) return s1 == s2;
+           
+            if(1==len) return s1 == s2;
             else
             {
                 if(isScramblePair.count(s1+s2)) return isScramblePair[s1+s2]; // checked before, return intermediate result directly
