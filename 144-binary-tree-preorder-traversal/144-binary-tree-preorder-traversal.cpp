@@ -12,17 +12,33 @@
 class Solution {
 public:
     vector<int> preorderTraversal(TreeNode* root) {
-        vector<int> nodes;
-        preorder(root, nodes);
-        return nodes;
-    }
-private:
-    void preorder(TreeNode* root, vector<int>& nodes) {
-        if (!root) {
-            return;
+        // vector<int> nodes;
+        // preorder(root, nodes);
+        // return nodes;
+         vector<int> nodes;
+        stack<TreeNode*> todo;
+        while (root || !todo.empty()) {
+            if (root) {
+                nodes.push_back(root -> val);
+                if (root -> right) {
+                    todo.push(root -> right);
+                }
+                root = root -> left;
+            } else {
+                root = todo.top();
+                todo.pop();
+            }
         }
-        nodes.push_back(root -> val);
-        preorder(root -> left, nodes);
-        preorder(root -> right, nodes);
+        return nodes;
+        
     }
+// private:
+//     void preorder(TreeNode* root, vector<int>& nodes) {
+//         if (!root) {
+//             return;
+//         }
+//         nodes.push_back(root -> val);
+//         preorder(root -> left, nodes);
+//         preorder(root -> right, nodes);
+//     }
 };
