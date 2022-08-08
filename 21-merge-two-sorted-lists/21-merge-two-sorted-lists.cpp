@@ -10,7 +10,7 @@
  */
 class Solution {
 public:
-    ListNode* mergeTwoLists(ListNode* list1, ListNode* list2) {
+        ListNode* mergeTwoLists(ListNode* list1, ListNode* list2) {
         if(list1==NULL) return list2;
         if(list2==NULL) return list1;
         
@@ -27,6 +27,6 @@ public:
             temp->next=list2;
             swap(list1,list2);
         }
-     return res;
-    }
+            return res;
+        }
 };
