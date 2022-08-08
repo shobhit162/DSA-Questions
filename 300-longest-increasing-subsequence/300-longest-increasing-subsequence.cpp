@@ -1,7 +1,7 @@
 class Solution {
 public:
     vector<int> dp;
-    int lengthOfLIS(vector<int>& nums) {
+    int lengthOfLIS(vector<int>& nums) {    // iska binary search vala solution bhi dekhna
         // dp.resize(size(nums)+1, -1);
         // return solve(nums, 0, -1);
          int ans = 1, n = size(nums);
