@@ -16,43 +16,49 @@ public:
 
 class Solution {
 public:
-    Node* copyRandomList(Node* head) {
-            
-        // STEP 1: PASS 1
-        // Creating a copy (except random pointer) of each old node and insert it next to the old node it's copied from.
-        // That is, it will create new alternative nodes which are a copy (except random pointer) of its previous node.
-        Node* node=head;
-        while(node){
-            Node* temp=node->next;
-            node->next=new Node(node->val);
-            node->next->next=temp;
-            node=temp;
-        }
-        
-        // STEP 2: PASS 2
-        // Now copy the random pointer (if exists) of the old nodes to their copy new nodes.
-        node=head;
-        while(node){
-            if(node->random)
-                node->next->random=node->random->next;
-            node=node->next->next; // go to next old node
-        }
-        
-        //STEP 3: PASS 3
-        // Copy the alternative nodes into "ans" link list using the "helper" pointer along with restoring the old link list.
-        Node* ans=new Node(0); // first node is a dummy node
-        Node* helper=ans;
-    
-        while(head){
-            // Copy the alternate added nodes from the old linklist
-            helper->next=head->next;
-            helper=helper->next;
-            
-            // Restoring the old linklist, by removing the alternative newly added nodes
-            head->next=head->next->next;
-            head=head->next; // go to next alternate node   
-        }
-        return ans->next; // Since first node is a dummy node
+   Node* copyRandomList(Node* head) {
+        Node *iter = head; 
+          Node *front = head;
 
+          // First round: make copy of each node,
+          // and link them together side-by-side in a single list.
+          while (iter != NULL) {
+            front = iter->next;
+
+            Node *copy = new Node(iter->val);
+            iter->next = copy;
+            copy->next = front;
+
+            iter = front;
+          }
+
+          // Second round: assign random pointers for the copy nodes.
+          iter = head;
+          while (iter != NULL) {
+            if (iter->random != NULL) {
+              iter->next->random = iter->random->next;
+            }
+            iter = iter->next->next;
+          }
+
+          // Third round: restore the original list, and extract the copy list.
+          iter = head;
+          Node *pseudoHead = new Node(0);
+          Node *copy = pseudoHead;
+
+          while (iter != NULL) {
+            front = iter->next->next;
+
+            // extract the copy
+            copy->next = iter->next;
+
+            // restore the original list
+            iter->next = front;
+              
+            copy = copy -> next; 
+            iter = front;
+          }
+
+          return pseudoHead->next;
     }
 };
