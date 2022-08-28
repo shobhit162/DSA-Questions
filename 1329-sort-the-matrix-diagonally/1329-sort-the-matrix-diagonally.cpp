@@ -12,7 +12,7 @@ public:
         // the idea is to use priority queue for each diagonal
         // as priority queue could sort it internally when a value is pushed / popped
         // we use greater<int> as we want the smallest go first
-        map<int, priority_queue<int, vector<int>, greater<int>>> diag;
+        unordered_map<int, priority_queue<int, vector<int>, greater<int>>> diag;
         // iterate each row
         for (int i = 0; i < n; i++) {
             // iterate each col
