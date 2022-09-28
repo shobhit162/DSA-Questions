@@ -12,7 +12,7 @@ class Solution {
 public:
     ListNode* removeNthFromEnd(ListNode* head, int n) {
          ListNode * start = new ListNode();   // optimized
-        start -> next = head;
+        start -> next = head;                // ek or approach h is nth elemnt tk pahuch jao matlab phehle size nikalo puri linked list ka fir nth p pahuchkr node-next=node.next.next krdo isme vo edge case ki n ki value pura size hi dediya vo bhi dekhna padega ....t.c. O(2n)
         ListNode* fast = start;
         ListNode* slow = start;     
 
